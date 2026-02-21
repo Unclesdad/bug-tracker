@@ -86,8 +86,7 @@ void Dashboard::accessTopic(size_t index) {
         topic.addComment(comment);
     }
     else if (input == "r") {
-        topic.setResolved(!topic.resolved);
-        topic.addComment(Comment("Topic marked as " + std::string(topic.resolved ? "resolved" : "unresolved"), user));
+        topic.setResolved(!topic.resolved, user);
     }
     else if (input == "b") {}
     else {
@@ -96,5 +95,5 @@ void Dashboard::accessTopic(size_t index) {
 }
 
 void Dashboard::resolveTopic(size_t index, bool resolve) {
-    topics[index].setResolved(resolve);
+    topics[index].setResolved(resolve, user);
 }

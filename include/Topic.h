@@ -19,7 +19,7 @@ public:
 
     void addComment(const Comment& comment);
 
-    void setResolved(bool resolve);
+    void setResolved(bool resolve, const User& user);
 
     void printComments();
 };

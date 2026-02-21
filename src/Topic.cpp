@@ -7,8 +7,10 @@ void Topic::addComment(const Comment& comment) {
     comments.push_back(comment);
 }
 
-void Topic::setResolved(bool resolve) {
+void Topic::setResolved(bool resolve, const User& user) {
     resolved = resolve;
+    addComment(Comment("Topic marked as " + std::string(resolved ? "resolved" : "unresolved"), user));
+
 }
 
 void Topic::printComments() {
