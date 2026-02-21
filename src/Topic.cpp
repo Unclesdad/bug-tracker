@@ -1,9 +1,9 @@
 #include <string>
 #include "Topic.h"
 
-Topic::Topic(const std::string title, const std::string body, const User& op) : title(title), body(body), op(op), comments(std::vector<Comment>()), resolved(false) {}
+Topic::Topic(const std::string title, const std::string body, const User& op) : title(title), body(body), op(op), resolved(false), comments(std::vector<Comment>()) {}
 
-void Topic::addComment(Comment& comment) {
+void Topic::addComment(const Comment& comment) {
     comments.push_back(comment);
 }
 

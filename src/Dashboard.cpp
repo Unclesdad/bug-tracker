@@ -1,13 +1,14 @@
 #include "Dashboard.h"
 
-Dashboard::Dashboard(const User& user) : user(user) {}
+Dashboard::Dashboard(const User& user) : user(user), system("System") {}
 
 void Dashboard::printTopics() {
     if (topics.size() == 0) {
         std::cout << "-- No topics yet!! make one by typing \"c\" --" << std::endl;
     }
     for (size_t i = 0; i < topics.size(); i++) {
-        std::cout << i << " " << topics[i].title << "   | " << topics[i].op.name << "  Comments: " << topics[i].comments.size() << std::endl;
+        Topic& topic = topics[i];
+        std::cout << i << (topic.resolved ? " [RESOLVED] " : " ") << topics[i].title << "   | " << topics[i].op.name << "  Comments: " << topics[i].comments.size() << std::endl;
     }
 }
 
@@ -64,12 +65,12 @@ void Dashboard::makeTopic() {
     topics.push_back(Topic(title, body, user));
 }
 
-void Dashboard::accessTopic(int index) {
+void Dashboard::accessTopic(size_t index) {
     std::cout << "\n\n";
     Topic& topic(topics[index]);
-    std::cout << "Title: " << topic.title << std::endl << "User: " << topic.op.name << std::endl << "-- BODY --" << std::endl << topic.body << "\n\n" << "-- COMMENTS --" << std::endl;
+    std::cout << (topic.resolved ? "[RESOLVED]\n" : "\n") << "Title: " << topic.title << std::endl << "User: " << topic.op.name << std::endl << "-- BODY --" << std::endl << topic.body << "\n\n" << "-- COMMENTS --" << std::endl;
     topic.printComments();
-    std::cout << "c - add comment  b - back" << std::endl;
+    std::cout << "c - add comment  b - back  r - toggle resolve" << std::endl;
 
     std::string input;
     std::getline(std::cin, input);
@@ -84,8 +85,16 @@ void Dashboard::accessTopic(int index) {
 
         topic.addComment(comment);
     }
+    else if (input == "r") {
+        topic.setResolved(!topic.resolved);
+        topic.addComment(Comment("Topic marked as " + std::string(topic.resolved ? "resolved" : "unresolved"), user));
+    }
     else if (input == "b") {}
     else {
         std::cout << "Input not understood. Please try again." << std::endl;
     }
+}
+
+void Dashboard::resolveTopic(size_t index, bool resolve) {
+    topics[index].setResolved(resolve);
 }

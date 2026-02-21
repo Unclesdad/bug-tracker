@@ -9,6 +9,7 @@
 class Dashboard {
 public:
     const User& user;
+    const User system;
     std::vector<Topic> topics;
 
     Dashboard(const User& user);
@@ -19,5 +20,7 @@ public:
 
     void makeTopic();
 
-    void accessTopic(int index);
+    void accessTopic(size_t index);
+
+    void resolveTopic(size_t index, bool resolve);
 };

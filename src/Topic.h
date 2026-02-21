@@ -17,7 +17,7 @@ public:
 
     Topic(const std::string title, const std::string body, const User& op);
 
-    void addComment(Comment& comment);
+    void addComment(const Comment& comment);
 
     void setResolved(bool resolve);
 
